@@ -69,9 +69,6 @@ ConnectFour.prototype.checkContinuity = function (arr, value, continuity) {
 }
 
 ConnectFour.prototype.checkConnectivity = function (column, row, player) {
-	console.log('I should check connectivity in all directions.');
-
-	var result;
 
 	if (this.checkContinuity(this.getColumn(column, row), player, 4))
 		return true;
@@ -86,12 +83,10 @@ ConnectFour.prototype.checkConnectivity = function (column, row, player) {
 }
 
 ConnectFour.prototype.getColumn = function (column, row) {
-	console.log('I should get column which contains [%s,%s]', column, row);
 	return this.columns[column];
 }
 
 ConnectFour.prototype.getRow = function (column, row) {
-	console.log('I should get row which contains [%s,%s]', column, row);
 	var returnArr = [];
 	for ( var i = 0 ; i < this.columns.length ; i++ ) {
 		returnArr.push( this.columns[i][row] ? this.columns[i][row] : null);
@@ -100,11 +95,9 @@ ConnectFour.prototype.getRow = function (column, row) {
 }
 
 ConnectFour.prototype.getForwardDia = function (column, row) {
-	console.log('I should get forward diagonal which contains [%s,%s]', column, row);
 	var returnArr = [];
 	var c,r;
 	for ( c = column - row, r = 0 ; c < this.columns.length ; c++, r++ ) {
-		console.log('c - %s , r - %s',c,r);
 		if ( this.columns[c]) {
 			returnArr.push( this.columns[c][r] ? this.columns[c][r] : null);
 		}
@@ -113,15 +106,12 @@ ConnectFour.prototype.getForwardDia = function (column, row) {
 }
 
 ConnectFour.prototype.getBackwardDia = function (column, row) {
-	console.log('I should get backward diagonal which contains [%s,%s]', column, row);
 	var returnArr = [];
 	var c,r;
 	for ( c = column + row, r = 0 ; c >= 0  ; c--, r++ ) {
-		console.log('c - %s , r - %s',c,r);
 		if ( this.columns[c]) {
 			returnArr.push( this.columns[c][r] ? this.columns[c][r] : null);
 		}
 	}
-	console.log(returnArr);
 	return returnArr;
 }
