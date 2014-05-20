@@ -118,14 +118,11 @@ ConnectFour.prototype.getForwardDia = function (column, row) {
 	console.log('I should get forward diagonal which contains [%s,%s]', column, row);
 	var returnArr = [];
 	var c,r;
-	column >= row ? (	c = column - row,
-						r = 0 ) 
-					: ( c = 0,
-						r = row - column
-					);
-	for ( ; c < this.columns.length ; c++, r++ ) {
+	for ( c = column - row, r = 0 ; c < this.columns.length ; c++, r++ ) {
 		console.log('c - %s , r - %s',c,r);
-		returnArr.push( this.columns[c][r] ? this.columns[c][r] : null);
+		if ( this.columns[c]) {
+			returnArr.push( this.columns[c][r] ? this.columns[c][r] : null);
+		}
 	}
 	return returnArr;
 }
@@ -134,15 +131,13 @@ ConnectFour.prototype.getBackwardDia = function (column, row) {
 	console.log('I should get backward diagonal which contains [%s,%s]', column, row);
 	var returnArr = [];
 	var c,r;
-	column > row ?	(	c = this.columns.length - 1,
-						r = row + column - (this.columns.length - 1) )
-					: ( c = row + column,
-						r = 0
-					);
-	for ( ; c >= 0  ; c--, r++ ) {
+	for ( c = column + row, r = 0 ; c >= 0  ; c--, r++ ) {
 		console.log('c - %s , r - %s',c,r);
-		returnArr.push( this.columns[c][r] ? this.columns[c][r] : null);
+		if ( this.columns[c]) {
+			returnArr.push( this.columns[c][r] ? this.columns[c][r] : null);
+		}
 	}
+	console.log(returnArr);
 	return returnArr;
 }
 
