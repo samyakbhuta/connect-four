@@ -18,12 +18,12 @@ $(document).ready(function(){
 		var index = $(this).index();
 		var winner = game.dropByCurrentPlayer(index)
 		if (winner){
-			// game over
-			// Show message with result
+			// Game over. Show message with result and starts new game.
 			$('#message-pane').html('Game Over. Winner is ' + winner + ' !');
-
-			// Starts new game.
 			game = new ConnectFour (p1,p2);
+		} else if (winner === 0) {
+			// Column is already filled!
+			$('#message-pane').html( game.currentPlayer() + ', try some other column !');
 		} else {
 			// Continue, display the message wrt to whose turn it is
 			$('#message-pane').html( game.currentPlayer() +

@@ -58,6 +58,9 @@ ConnectFour.prototype.dropByCurrentPlayer = function (column) {
 	if ( addedToRow > 0 ) {
 		var isWin = this.checkConnectivity(column, addedToRow - 1, this.currentPlayer());
 		return isWin ? this.currentPlayer() : this.turn();
+	} else {
+		// Indicates that column was already filled.
+		return 0;
 	}
 }
 
