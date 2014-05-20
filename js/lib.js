@@ -2,7 +2,6 @@ var ConnectFour = function (player1, player2) {
 	this.columns = [];
 	this.players = [player1, player2];
 
-	// change it to currentPlayerIndex?;
 	this.currentTurn = 0;
 	for ( var i = 0 ; i <= 6 ; i++ ) {
 		this.columns[i]=[];

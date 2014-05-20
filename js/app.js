@@ -1,4 +1,3 @@
-// var ConnectFour = require ('./lib.js').ConnectFour;
 $(document).ready(function(){
 
 	// Init, creates a new game.
