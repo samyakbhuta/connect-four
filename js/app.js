@@ -28,9 +28,7 @@ $(document).ready(function(){
 			// Game over. Show message with result and starts new game.
 			$('#message-pane').html('Game Over. Winner is ' + status + ' !' +
 				' Click on any column to start a new game.');
-			setTimeout(function() {
-				game = new ConnectFour (p1,p2);
-			}, 2000);
+			game = new ConnectFour (p1,p2);
 		} else {
 			// Continue, display the message wrt to whose turn it is
 			$('#message-pane').html( game.currentPlayer() +
