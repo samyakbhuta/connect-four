@@ -59,8 +59,12 @@ ConnectFour.prototype.dropByCurrentPlayer = function (column) {
 		var isWin = this.checkConnectivity(column, addedToRow - 1, this.currentPlayer());
 		return isWin ? this.currentPlayer() : this.turn();
 	} else {
-		// Indicates that column was already filled.
-		return 0;
+		// Attempted column was already filled.
+		// Check if all columns are filled, return accordingly.
+		var allColumnsFilled = this.columns.every(function(i){
+			return i.length === 6;
+		});
+		return allColumnsFilled ? 'all-columns-filled' : 'column-filled';
 	}
 }
 

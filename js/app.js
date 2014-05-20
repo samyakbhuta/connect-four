@@ -16,14 +16,21 @@ $(document).ready(function(){
 
 	$("#board").on("click", ".column", function(e) {
 		var index = $(this).index();
-		var winner = game.dropByCurrentPlayer(index)
-		if (winner){
-			// Game over. Show message with result and starts new game.
-			$('#message-pane').html('Game Over. Winner is ' + winner + ' !');
-			game = new ConnectFour (p1,p2);
-		} else if (winner === 0) {
+		var status = game.dropByCurrentPlayer(index)
+		if ( status === 'column-filled' ) {
 			// Column is already filled!
 			$('#message-pane').html( game.currentPlayer() + ', try some other column !');
+		} else if ( status === 'all-columns-filled' ) {
+			// All Columns are already filled! Time for new game.
+			$('#message-pane').html('Game Over. Nobody Wins :(');
+			game = new ConnectFour (p1,p2);
+		} else if ( status === p1 || status === p2) {
+			// Game over. Show message with result and starts new game.
+			$('#message-pane').html('Game Over. Winner is ' + status + ' !' +
+				' Click on any column to start a new game.');
+			setTimeout(function() {
+				game = new ConnectFour (p1,p2);
+			}, 2000);
 		} else {
 			// Continue, display the message wrt to whose turn it is
 			$('#message-pane').html( game.currentPlayer() +
