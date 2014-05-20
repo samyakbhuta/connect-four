@@ -33,7 +33,7 @@ ConnectFour.prototype.getColumnsDOM = function () {
 
 ConnectFour.prototype.getColumnDOM = function (column) {
 	return this.columns[column].map( function(i) {
-		return '<div class="disc">'+i+'</div>'
+		return '<div class="disc ' + i + '" >' + i + '</div>'
 	}).reverse().join('');
 }
 
