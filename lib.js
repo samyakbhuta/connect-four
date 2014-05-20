@@ -24,6 +24,19 @@ ConnectFour.prototype.displayColumn = function (column) {
 	return this.columns[column].join('\t');
 }
 
+ConnectFour.prototype.getColumnsDOM = function () {
+	var self = this;
+	return this.columns.map( function (column, i) {
+		return '<div class="column">' + self.getColumnDOM(i) + '</div>';
+	}).join('');
+}
+
+ConnectFour.prototype.getColumnDOM = function (column) {
+	return this.columns[column].map( function(i) {
+		return '<div class="disc">'+i+'</div>'
+	}).reverse().join('');
+}
+
 ConnectFour.prototype.currentPlayer = function () {
 	return this.players[this.currentTurn];
 }
