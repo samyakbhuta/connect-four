@@ -43,53 +43,130 @@ ConnectFour.prototype.drop = function (str, column) {
 ConnectFour.prototype.dropByCurrentPlayer = function (column) {
 	var addedToRow = this.drop(this.currentPlayer(),column);
 	if ( addedToRow > 0 ) {
-		var isWin = this.checkConnectivity(column, addedToRow - 1);
+		var isWin = this.checkConnectivity(column, addedToRow - 1, this.currentPlayer());
 		return isWin ? this.currentPlayer() : this.turn();
 	}
 }
 
-ConnectFour.prototype.checkConnectivity = function (column, row) {
-	console.log('I should check connectivity in all directions.');
+ConnectFour.prototype.checkContinuity = function (arr, value, continuity) {
+	var result = arr.reduce(function (prev, current) {
+		if ( prev === continuity ) {
+			return prev;
+		}
 
-	var self = this;
-	var directions = [	[-1,-1],	// South-West
-						[-1, 0],	// West
-						[-1, 1],	// North-West
-						[ 0,-1],	// South
-						// [ 0, 0],	// Non Direction
-						// [ 0, 1],	// North, Not Needed
-						[ 1,-1],	// South-East
-						[ 1, 0],	// East
-						[ 1, 1],	// North-East
-	];
-
-	var results = directions.map( function (direction) {
-		var discArray = self.traverse(column, row, 4, direction[0], direction[1]);
-		if ( discArray.length < 4 )
-			return false;
-		var isIdentical = discArray.every( function(disc) {
-			return ( disc === discArray[0]);
-		});
-		console.log('is it all identical ? - %s', isIdentical);
-		return isIdentical;
-	})
-
-	console.log('Results ' + results);
-	console.log('I checked connectivity in all directions.');
+		if ( current === value ) {
+			return ++prev;
+		} else {
+			return 0;
+		}
+	}, 0);
+	return result === continuity;
 }
 
-ConnectFour.prototype.traverse = function (column, row, length, hDir, vDir) {
-	console.log('I should traverse in [%s,%s] direction from [%s,%s] - %s steps', 
-			hDir, vDir, column, row, length);
+ConnectFour.prototype.checkConnectivity = function (column, row, player) {
+	console.log('I should check connectivity in all directions.');
+
+	var result;
+
+	if (this.checkContinuity(this.getColumn(column, row), player, 4))
+		return true;
+	if (this.checkContinuity(this.getRow(column, row), player, 4))
+		return true;
+	if (this.checkContinuity(this.getForwardDia(column, row), player, 4))
+		return true;
+	if (this.checkContinuity(this.getBackwardDia(column, row), player, 4))
+		return true;
+
+	return false;
+}
+
+ConnectFour.prototype.getColumn = function (column, row) {
+	console.log('I should get column which contains [%s,%s]', column, row);
+	return this.columns[column];
+}
+
+ConnectFour.prototype.getRow = function (column, row) {
+	console.log('I should get row which contains [%s,%s]', column, row);
 	var returnArr = [];
-	for ( var i = 0 ; i < length ; i++ ) {
-		if (this.columns[column + (hDir*i)]) {
-			returnArr.push(this.columns[column + (hDir*i)][row + (vDir*i)]);
-		}
+	for ( var i = 0 ; i < this.columns.length ; i++ ) {
+		returnArr.push( this.columns[i][row] ? this.columns[i][row] : null);
 	}
 	return returnArr;
 }
 
+ConnectFour.prototype.getForwardDia = function (column, row) {
+	console.log('I should get forward diagonal which contains [%s,%s]', column, row);
+	var returnArr = [];
+	var c,r;
+	column >= row ? (	c = column - row,
+						r = 0 ) 
+					: ( c = 0,
+						r = row - column
+					);
+	for ( ; c < this.columns.length ; c++, r++ ) {
+		console.log('c - %s , r - %s',c,r);
+		returnArr.push( this.columns[c][r] ? this.columns[c][r] : null);
+	}
+	return returnArr;
+}
+
+ConnectFour.prototype.getBackwardDia = function (column, row) {
+	console.log('I should get backward diagonal which contains [%s,%s]', column, row);
+	var returnArr = [];
+	var c,r;
+	column > row ?	(	c = this.columns.length - 1,
+						r = row + column - (this.columns.length - 1) )
+					: ( c = row + column,
+						r = 0
+					);
+	for ( ; c >= 0  ; c--, r++ ) {
+		console.log('c - %s , r - %s',c,r);
+		returnArr.push( this.columns[c][r] ? this.columns[c][r] : null);
+	}
+	return returnArr;
+}
+
+// ConnectFour.prototype.checkConnectivity = function (column, row) {
+// 	console.log('I should check connectivity in all directions.');
+
+// 	var self = this;
+// 	var directions = [	[-1,-1],	// South-West
+// 						[-1, 0],	// West
+// 						[-1, 1],	// North-West
+// 						[ 0,-1],	// South
+// 						// [ 0, 0],	// Non Direction
+// 						// [ 0, 1],	// North, Not Needed
+// 						[ 1,-1],	// South-East
+// 						[ 1, 0],	// East
+// 						[ 1, 1],	// North-East
+// 	];
+
+// 	var results = directions.map( function (direction) {
+// 		var discArray = self.traverse(column, row, 4, direction[0], direction[1]);
+// 		if ( discArray.length < 4 )
+// 			return false;
+// 		var isIdentical = discArray.every( function(disc) {
+// 			return ( disc === discArray[0]);
+// 		});
+// 		console.log('is it all identical ? - %s', isIdentical);
+// 		return isIdentical;
+// 	})
+
+// 	console.log('Results ' + results);
+// 	console.log('I checked connectivity in all directions.');
+// }
+
+// ConnectFour.prototype.traverse = function (column, row, length, hDir, vDir) {
+// 	console.log('I should traverse in [%s,%s] direction from [%s,%s] - %s steps', 
+// 			hDir, vDir, column, row, length);
+// 	var returnArr = [];
+// 	for ( var i = 0 ; i < length ; i++ ) {
+// 		if (this.columns[column + (hDir*i)]) {
+// 			returnArr.push(this.columns[column + (hDir*i)][row + (vDir*i)]);
+// 		}
+// 	}
+// 	return returnArr;
+// }
 
 // ConnectFour.prototype.traverseSouth = function (column, row, length) {
 // 	console.log('I should traverse south from [%s,%s] - %s steps', 
@@ -100,7 +177,6 @@ ConnectFour.prototype.traverse = function (column, row, length, hDir, vDir) {
 // 	}
 // 	return returnArr;
 // }
-
 
 // ConnectFour.prototype.traverseSouthEast = function (column, row, length) {
 // 	console.log('I should traverse south-east from [%s,%s] - %s steps', 
@@ -122,4 +198,4 @@ ConnectFour.prototype.traverse = function (column, row, length, hDir, vDir) {
 // 	return returnStr;
 // }
 
-exports.ConnectFour = ConnectFour;
+if (!window) exports.ConnectFour = ConnectFour;
