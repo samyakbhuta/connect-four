@@ -10,6 +10,7 @@
     display: table;
     margin : 10px auto;
 }
+
 .column {
     height: 270px;
     width: 42px;
@@ -19,6 +20,7 @@
     border: 1px dotted #AAAAAA;
     padding: 2px;
 }
+
 .disc {
     width: 40px;
     height: 40px;
