@@ -1,0 +1,1 @@
+Implementation of [ConnectFour](http://en.wikipedia.org/wiki/Connect_Four) game.
