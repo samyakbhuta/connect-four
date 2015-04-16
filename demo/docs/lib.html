@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>lib.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="app.html">
+                app.js
+              </a>
+            
+              
+              <a class="source" href="lib.html">
+                lib.js
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>lib.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="keyword">var</span> ConnectFour = <span class="function"><span class="keyword">function</span> <span class="params">(player1, player2)</span> {</span>
+	<span class="keyword">this</span>.columns = [];
+	<span class="keyword">this</span>.players = [player1, player2];
+
+	<span class="keyword">this</span>.currentTurn = <span class="number">0</span>;
+	<span class="keyword">for</span> ( <span class="keyword">var</span> i = <span class="number">0</span> ; i &lt;= <span class="number">6</span> ; i++ ) {
+		<span class="keyword">this</span>.columns[i]=[];
+	}
+}
+
+ConnectFour.prototype.getColumnsDOM = <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+	<span class="keyword">var</span> self = <span class="keyword">this</span>;
+	<span class="keyword">return</span> <span class="keyword">this</span>.columns.map( <span class="function"><span class="keyword">function</span> <span class="params">(column, i)</span> {</span>
+		<span class="keyword">return</span> <span class="string">'&lt;div class="column"&gt;'</span> + self.getColumnDOM(i) + <span class="string">'&lt;/div&gt;'</span>;
+	}).join(<span class="string">''</span>);
+}
+
+ConnectFour.prototype.getColumnDOM = <span class="function"><span class="keyword">function</span> <span class="params">(column)</span> {</span>
+	<span class="keyword">return</span> <span class="keyword">this</span>.columns[column].map( <span class="function"><span class="keyword">function</span><span class="params">(i)</span> {</span>
+		<span class="keyword">return</span> <span class="string">'&lt;div class="disc '</span> + i + <span class="string">'" &gt;'</span> + i + <span class="string">'&lt;/div&gt;'</span>
+	}).reverse().join(<span class="string">''</span>);
+}
+
+ConnectFour.prototype.currentPlayer = <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+	<span class="keyword">return</span> <span class="keyword">this</span>.players[<span class="keyword">this</span>.currentTurn];
+}
+
+ConnectFour.prototype.turn = <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+	<span class="keyword">this</span>.currentTurn === <span class="keyword">this</span>.players.length-<span class="number">1</span> ?
+		<span class="keyword">this</span>.currentTurn = <span class="number">0</span> : <span class="keyword">this</span>.currentTurn++;
+}
+
+ConnectFour.prototype.drop = <span class="function"><span class="keyword">function</span> <span class="params">(str, column)</span> {</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>Returning 0 indicates the column was already filled up with discs.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	<span class="keyword">return</span> <span class="keyword">this</span>.columns[column].length === <span class="number">6</span> ?
+		<span class="number">0</span> : <span class="keyword">this</span>.columns[column].push(str);	
+}
+
+ConnectFour.prototype.dropByCurrentPlayer = <span class="function"><span class="keyword">function</span> <span class="params">(column)</span> {</span>
+	<span class="keyword">var</span> addedToRow = <span class="keyword">this</span>.drop(<span class="keyword">this</span>.currentPlayer(),column);
+	<span class="keyword">if</span> ( addedToRow &gt; <span class="number">0</span> ) {
+		<span class="keyword">var</span> isWin = <span class="keyword">this</span>.checkConnectivity(column, addedToRow - <span class="number">1</span>, <span class="keyword">this</span>.currentPlayer());
+		<span class="keyword">return</span> isWin ? <span class="keyword">this</span>.currentPlayer() : <span class="keyword">this</span>.turn();
+	} <span class="keyword">else</span> {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Attempted column was already filled.
+Check if all columns are filled, return accordingly.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="keyword">var</span> allColumnsFilled = <span class="keyword">this</span>.columns.every(<span class="function"><span class="keyword">function</span><span class="params">(i)</span>{</span>
+			<span class="keyword">return</span> i.length === <span class="number">6</span>;
+		});
+		<span class="keyword">return</span> allColumnsFilled ? <span class="string">'all-columns-filled'</span> : <span class="string">'column-filled'</span>;
+	}
+}
+
+ConnectFour.prototype.checkContinuity = <span class="function"><span class="keyword">function</span> <span class="params">(arr, value, continuity)</span> {</span>
+	<span class="keyword">var</span> result = arr.reduce(<span class="function"><span class="keyword">function</span> <span class="params">(prev, current)</span> {</span>
+		<span class="keyword">if</span> ( prev === continuity ) {
+			<span class="keyword">return</span> prev;
+		}
+
+		<span class="keyword">if</span> ( current === value ) {
+			<span class="keyword">return</span> ++prev;
+		} <span class="keyword">else</span> {
+			<span class="keyword">return</span> <span class="number">0</span>;
+		}
+	}, <span class="number">0</span>);
+	<span class="keyword">return</span> result === continuity;
+}
+
+ConnectFour.prototype.checkConnectivity = <span class="function"><span class="keyword">function</span> <span class="params">(column, row, player)</span> {</span>
+
+	<span class="keyword">if</span> (<span class="keyword">this</span>.checkContinuity(<span class="keyword">this</span>.getColumn(column, row), player, <span class="number">4</span>))
+		<span class="keyword">return</span> <span class="literal">true</span>;
+	<span class="keyword">if</span> (<span class="keyword">this</span>.checkContinuity(<span class="keyword">this</span>.getRow(column, row), player, <span class="number">4</span>))
+		<span class="keyword">return</span> <span class="literal">true</span>;
+	<span class="keyword">if</span> (<span class="keyword">this</span>.checkContinuity(<span class="keyword">this</span>.getForwardDia(column, row), player, <span class="number">4</span>))
+		<span class="keyword">return</span> <span class="literal">true</span>;
+	<span class="keyword">if</span> (<span class="keyword">this</span>.checkContinuity(<span class="keyword">this</span>.getBackwardDia(column, row), player, <span class="number">4</span>))
+		<span class="keyword">return</span> <span class="literal">true</span>;
+
+	<span class="keyword">return</span> <span class="literal">false</span>;
+}
+
+ConnectFour.prototype.getColumn = <span class="function"><span class="keyword">function</span> <span class="params">(column, row)</span> {</span>
+	<span class="keyword">return</span> <span class="keyword">this</span>.columns[column];
+}
+
+ConnectFour.prototype.getRow = <span class="function"><span class="keyword">function</span> <span class="params">(column, row)</span> {</span>
+	<span class="keyword">var</span> returnArr = [];
+	<span class="keyword">for</span> ( <span class="keyword">var</span> i = <span class="number">0</span> ; i &lt; <span class="keyword">this</span>.columns.length ; i++ ) {
+		returnArr.push( <span class="keyword">this</span>.columns[i][row] ? <span class="keyword">this</span>.columns[i][row] : <span class="literal">null</span>);
+	}
+	<span class="keyword">return</span> returnArr;
+}
+
+ConnectFour.prototype.getForwardDia = <span class="function"><span class="keyword">function</span> <span class="params">(column, row)</span> {</span>
+	<span class="keyword">var</span> returnArr = [];
+	<span class="keyword">var</span> c,r;
+	<span class="keyword">for</span> ( c = column - row, r = <span class="number">0</span> ; c &lt; <span class="keyword">this</span>.columns.length ; c++, r++ ) {
+		<span class="keyword">if</span> ( <span class="keyword">this</span>.columns[c]) {
+			returnArr.push( <span class="keyword">this</span>.columns[c][r] ? <span class="keyword">this</span>.columns[c][r] : <span class="literal">null</span>);
+		}
+	}
+	<span class="keyword">return</span> returnArr;
+}
+
+ConnectFour.prototype.getBackwardDia = <span class="function"><span class="keyword">function</span> <span class="params">(column, row)</span> {</span>
+	<span class="keyword">var</span> returnArr = [];
+	<span class="keyword">var</span> c,r;
+	<span class="keyword">for</span> ( c = column + row, r = <span class="number">0</span> ; c &gt;= <span class="number">0</span>  ; c--, r++ ) {
+		<span class="keyword">if</span> ( <span class="keyword">this</span>.columns[c]) {
+			returnArr.push( <span class="keyword">this</span>.columns[c][r] ? <span class="keyword">this</span>.columns[c][r] : <span class="literal">null</span>);
+		}
+	}
+	<span class="keyword">return</span> returnArr;
+}</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
