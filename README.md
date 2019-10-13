@@ -1,7 +1,10 @@
 Implementation of [ConnectFour](http://en.wikipedia.org/wiki/Connect_Four) game using [jQuery](https://jquery.com/).
 
-* Docco documentation at http://samyakbhuta.github.io/connect-four/docs/app.html.
-* Another hosted version is at https://connectfour.samyakbhuta.com/
+* Hosted versions at
+  *  http://samyakbhuta.github.io/connect-four/ (Github Pages)
+  *  https://connectfour-jquery.samyakbhuta.com/ (On Netlify, Git push to deploy)
+  *  https://connectfour-web-bundle.samyakbhuta.com (On Netlify, as web bundle - manual deploy)
+* Docco documentation at http://samyakbhuta.github.io/connect-four/docs/js/app.html, also at the other two deployements.
 
 ## How to start the game on your local machine ?
  * Clone the repo to your local machine. On your command line, type following.
