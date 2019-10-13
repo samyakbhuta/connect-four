@@ -1,10 +1,12 @@
 Implementation of [ConnectFour](http://en.wikipedia.org/wiki/Connect_Four) game using [jQuery](https://jquery.com/).
 
-* Hosted versions at
-  *  http://samyakbhuta.github.io/connect-four/ (Github Pages)
-  *  https://connectfour-jquery.samyakbhuta.com/ (On Netlify, Git push to deploy)
-  *  https://connectfour-web-bundle.samyakbhuta.com (On Netlify, as web bundle - manual deploy. Not guranteed to be latest!!)
-* [Docco](http://ashkenas.com/docco/) documentation at http://samyakbhuta.github.io/connect-four/docs/js/app.html, also at the other two deployements.
+## Demo
+
+**Hosted At**|**Continuous Delivery (`git push` to deploy)**|**Automatic Documentation Generation**|**Application Link**|**Source Code Documentation Link**
+:-----:|:-----:|:-----:|:-----:|:-----:
+[Github Pages](https://pages.github.com/)| YES| NO| [See](http://samyakbhuta.github.io/connect-four/) | [See](http://samyakbhuta.github.io/connect-four/docs/js/app) (Can be older version!)
+[Netlify](https://www.netlify.com/)| YES| YES| [See](https://connectfour-jquery.samyakbhuta.com/) | [See](https://connectfour-jquery.samyakbhuta.com/docs/js/app)
+[Netlify](https://www.netlify.com/) (['Manual deploys'](https://www.netlify.com/docs/manual-deploys/))| NO (Deployed as web bundle. Not guranteed to be latest version!!)| NO (Should be possible. Not supported yet. Hopefully in future. Finger crossed.)| [See](https://connectfour-web-bundle.samyakbhuta.com/) (Can be older version!) | [See](https://connectfour-web-bundle.samyakbhuta.com/docs/app) (Can be older version!)
 
 ## How to start the game on your local machine?
  * Clone the repo to your local machine. On your command line, type following.
