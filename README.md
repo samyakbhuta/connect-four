@@ -1,5 +1,8 @@
 Implementation of [ConnectFour](http://en.wikipedia.org/wiki/Connect_Four) game.
 
+* Docco documentation at http://samyakbhuta.github.io/connect-four/docs/app.html.
+* Another hosted version is at https://connectfour.samyakbhuta.com/
+
 ## How to start the game on your local machine ?
 1. Clone the repo to your local machine. On your command line, type following.
 
