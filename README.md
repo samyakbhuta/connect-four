@@ -21,8 +21,20 @@ Implementation of [ConnectFour](http://en.wikipedia.org/wiki/Connect_Four) game 
     Type ```localhost:8000``` in your browser's location bar.
  * Enjoy the game!
 
-## How to generate documentation?
+## How to generate documentation on your local machine?
 
+There are two ways to build the documentation. Both are described here. Choose either of them. Forner is recommended as it doesn't clutter your global NPM package space.
+
+### Install `docco` as local package (Recommended)
+ * In the project root, type following. It will install `docco` locally.
+
+   ```npm install```
+ 
+ * To generate the documentation, type following. It will generate the documentation in the `docs` folder.
+
+    ```npx docco js/*.*```
+ 
+### Install `docco` as global package
  * This project is using [Docco](http://ashkenas.com/docco/) to create documentation.
 
  * Download and install `docco` as per the instructions given in the official website.
@@ -31,4 +43,4 @@ Implementation of [ConnectFour](http://en.wikipedia.org/wiki/Connect_Four) game 
 
    ```docco js/*.*```
 
- * The annonated documentation is generated in the `docs` folder. One can serve the generated `.html` files, in a browser. E.g. `http://localhost:8080/docs/js/app.html`
+ The annonated documentation is generated in the `docs` folder. One can serve the generated `.html` files, in a browser. E.g. `http://localhost:8080/docs/js/app.html`
