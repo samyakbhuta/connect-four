@@ -17,3 +17,15 @@ Implementation of [ConnectFour](http://en.wikipedia.org/wiki/Connect_Four) game 
 
     Type ```localhost:8000``` in your browser's location bar.
  * Enjoy the game!
+
+## How to generate documentation?
+
+ * This project is using [Docco](http://ashkenas.com/docco/) to create documentation.
+
+ * Download and install `docco` as per the instructions given in the official website.
+
+ * Type following command, while you are in project root.
+
+   ```docco js/*.*```
+
+ * The annonated documentation is generated in the `docs` folder. One can serve the generated `.html` files, in a browser. E.g. `http://localhost:8080/docs/js/app.html`
