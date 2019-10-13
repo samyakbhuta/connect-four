@@ -1,8 +1,9 @@
-$(document).ready(function(){
+	// ### Init
+	// * Asks for players' names.
+	// * Creates a new game
+	// * Displays the board.
 
-	// Init, creates a new game.
-	// Ask for players' names.
-	// Displays the board.
+$(document).ready(function(){
 
 	var p1 = window.prompt("First player's name", "P1");
 	var p2 = window.prompt("Second player's name", "P2");
