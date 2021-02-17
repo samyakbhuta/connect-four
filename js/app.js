@@ -14,7 +14,12 @@ $(document).ready(function(){
 		alert('Enter different names for Players')
 		location.reload();
 	}
-	
+	//Jyldyz:In case user input is empty 
+	else if(p1==''|| p2==''){
+		alert('Players names cannot be Empty!')
+		location.reload();
+	}
+
 
 	let game = new ConnectFour (p1,p2);
 	$('#message-pane').html( game.currentPlayer() +
