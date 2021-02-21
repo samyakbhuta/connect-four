@@ -1,46 +1,54 @@
-var ConnectFour = /** @class */ (function () {
-  function ConnectFour(player1, player2) {
+class ConnectFour {
+
+  players: string[];
+  currentTurn: number;
+  columns: Array<string[]>;
+
+  constructor(player1: string, player2: string) {
     this.players = [player1, player2];
     this.currentTurn = 0;
     this.columns = [];
-    for (var i = 0; i <= 6; i++) {
+    for (let i: number = 0; i <= 6; i++) {
       this.columns[i] = [];
     }
   }
-  ConnectFour.prototype.getColumnsDOM = function () {
-    var _this = this;
+
+  getColumnsDOM(): string {
     console.log(this.columns);
     return this.columns
-      .map(function (column, i) {
-        return '<div class="column"> ' + _this.getColumnDOM(i) + " </div>";
-      })
+      .map((column, i) => `<div class="column"> ${this.getColumnDOM(i)} </div>`)
       .join("");
-  };
-  ConnectFour.prototype.getColumnDOM = function (column) {
+  }
+
+  getColumnDOM(column: number): string {
     return this.columns[column]
-      .map(function (i) {
-        return '<div class="disc ' + i + '"> ' + i + " </div>";
-      })
+      .map((i) => `<div class="disc ${i}"> ${i} </div>`)
       .reverse()
       .join("");
-  };
-  ConnectFour.prototype.currentPlayer = function () {
+  }
+
+  currentPlayer(): string {
     return this.players[this.currentTurn];
-  };
-  ConnectFour.prototype.turn = function () {
+  }
+
+  turn(): void {
     // this.currentTurn === this.players.length - 1
-    this.currentTurn === 1 ? (this.currentTurn = 0) : this.currentTurn++;
-  };
-  ConnectFour.prototype.drop = function (str, column) {
+    this.currentTurn === 1
+      ? (this.currentTurn = 0)
+      : this.currentTurn++;
+  }
+
+  drop(str: string, column: number): number {
     // Returning 0 indicates the column was already filled up with discs.
     return this.columns[column].length === 6
       ? 0
       : this.columns[column].push(str);
-  };
-  ConnectFour.prototype.dropByCurrentPlayer = function (column) {
-    var addedToRow = this.drop(this.currentPlayer(), column);
+  }
+
+  dropByCurrentPlayer(column: number): string | void {
+    const addedToRow = this.drop(this.currentPlayer(), column);
     if (addedToRow > 0) {
-      var isWin = this.checkConnectivity(
+      let isWin = this.checkConnectivity(
         column,
         addedToRow - 1,
         this.currentPlayer()
@@ -49,17 +57,21 @@ var ConnectFour = /** @class */ (function () {
     } else {
       // Attempted column was already filled.
       // Check if all columns are filled, return accordingly.
-      var allColumnsFilled = this.columns.every(function (i) {
-        i.length === 6;
-      });
+      const allColumnsFilled = this.columns.every((i) => {i.length === 6;});
       return allColumnsFilled ? "all-columns-filled" : "column-filled";
     }
-  };
-  ConnectFour.prototype.checkContinuity = function (arr, value, continuity) {
-    var result = arr.reduce(function (prev, current) {
+  }
+
+  checkContinuity(
+    arr: string[],
+    value: string,
+    continuity: number
+  ): number | boolean {
+    const result = arr.reduce((prev, current) => {
       if (prev === continuity) {
         return prev;
       }
+
       if (current === value) {
         return ++prev;
       } else {
@@ -67,9 +79,10 @@ var ConnectFour = /** @class */ (function () {
       }
     }, 0);
     return result === continuity;
-  };
+  }
+
   //JYLDYZ: shortened with logical OR (||) operator
-  ConnectFour.prototype.checkConnectivity = function (column, row, player) {
+  checkConnectivity(column: number, row: number, player: string): boolean {
     if (
       this.checkContinuity(this.getColumn(column, row), player, 4) ||
       this.checkContinuity(this.getRow(column, row), player, 4) ||
@@ -80,36 +93,39 @@ var ConnectFour = /** @class */ (function () {
     else {
       return false;
     }
-  };
-  ConnectFour.prototype.getColumn = function (column, row) {
+  }
+
+  getColumn(column: number, row: number): string[] {
     return this.columns[column];
-  };
-  ConnectFour.prototype.getRow = function (column, row) {
-    var returnArr = [];
-    for (var i = 0; i < this.columns.length; i++) {
+  }
+
+  getRow(column: number, row: number): string[] {
+    let returnArr: any = [];
+    for (let i = 0; i < this.columns.length; i++) {
       returnArr.push(this.columns[i][row] ? this.columns[i][row] : null);
     }
     return returnArr;
-  };
-  ConnectFour.prototype.getForwardDia = function (column, row) {
-    var returnArr = [];
-    var c, r;
+  }
+
+  getForwardDia(column: number, row: number): string[] {
+    let returnArr: any = [];
+    let c: number, r: number;
     for (c = column - row, r = 0; c < this.columns.length; c++, r++) {
       if (this.columns[c]) {
         returnArr.push(this.columns[c][r] ? this.columns[c][r] : null);
       }
     }
     return returnArr;
-  };
-  ConnectFour.prototype.getBackwardDia = function (column, row) {
-    var returnArr = [];
-    var c, r;
+  }
+
+  getBackwardDia(column: number, row: number): string[] {
+    let returnArr: any = [];
+    let c: number, r: number;
     for (c = column + row, r = 0; c >= 0; c--, r++) {
       if (this.columns[c]) {
         returnArr.push(this.columns[c][r] ? this.columns[c][r] : null);
       }
     }
     return returnArr;
-  };
-  return ConnectFour;
-})();
+  }
+}
