@@ -1,0 +1,40 @@
+{
+    "id": "jJUCr",
+    "name": "Intro to this source base",
+    "content": [
+        {
+            "type": "text",
+            "text": "You can divide the source for the game in four major section\n\n*   The application\n    \n*   The in-house library\n    \n*   The external library"
+        },
+        {
+            "type": "snippet",
+            "lines": [
+                "*var ConnectFour = function (player1, player2) {",
+                "*\tthis.columns = [];",
+                "*\tthis.players = [player1, player2];",
+                "*",
+                "*\tthis.currentTurn = 0;",
+                "*\tfor ( var i = 0 ; i <= 6 ; i++ ) {",
+                "*\t\tthis.columns[i]=[];",
+                "*\t}",
+                "*}",
+                " ",
+                " ConnectFour.prototype.getColumnsDOM = function () {",
+                " \tvar self = this;"
+            ],
+            "firstLineNumber": 1,
+            "path": "js/lib.js",
+            "comments": [
+                "The ConnectFour 'class'. It allows you to model the connect four game"
+            ]
+        }
+    ],
+    "symbols": {},
+    "file_version": "2.0.3",
+    "meta": {
+        "app_version": "0.5.9-0",
+        "file_blobs": {
+            "js/lib.js": "b5a554ac6e757723d6142303069f37e7072e5e56"
+        }
+    }
+}
